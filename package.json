@@ -1,0 +1,23 @@
+{
+  "name": "highschoolhelper",
+  "version": "0.0.0",
+  "description": "Hello Expo!",
+  "author": "Nick Vitebsky",
+  "private": true,
+  "main": "node_modules/expo/AppEntry.js",
+  "dependencies": {
+    "expo": "^21.0.0",
+    "moment": "^2.18.1",
+    "react": "16.0.0-alpha.12",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
+    "react-native-easy-toast": "^1.0.6",
+    "react-native-picker": "^4.2.0",
+    "react-native-vector-icons": "^4.4.0",
+    "react-navigation": "^1.0.0-beta.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
+}

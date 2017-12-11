@@ -1,0 +1,32 @@
+//If time add a splash screen and make new features that makes this more unique
+//https://www.youtube.com/watch?v=FUdy4PHIbww
+//https://docs.expo.io/versions/latest/guides/splash-screens.html
+//https://github.com/react-community/react-navigation/issues/156
+//https://js.coach/react-native?search=splash
+
+
+
+//Description: this is a new brand of bedtime app that is different from all others apps out there. No apps on the app store can directly do this
+//actively countdown and send notifications reminding you to go to bed at a specific time. The closest apps recommend bedtimes that correspond to waking time and only tell you how long you've slept
+//this is an active push to fall asleep at a specific time
+
+//Problem: convert the picker time into actual units i can use just like the currenttime format
+//do the actual logic of the countdown now where given the two times, find the difference (absolute value) and live update the decreasing difference
+//also, look at date format deprecation warning
+//position everything comfortably and try to use the flex layouts so it looks good on every device
+//SAVE the state of the picker after the app closes --> https://github.com/mCodex/react-native-sensitive-info, https://stackoverflow.com/questions/29988487/storing-userpreferences-with-a-react-native-app, https://github.com/kevinresol/react-native-default-preference, https://stackoverflow.com/questions/29284705/saving-data-upon-closing-app-and-retrieving-that-data
+//SEND NOTIFICATIONS REMINDING WHEN TO GO TO SLEEP, HAVE NESTED NAVIGATION!
+//make the picker a pop up menu instead of remaining on the screen
+
+
+//My steps:
+The first thing I did was research easy ways to display dates in the format I wanted in JS.
+I tackled the problem one step at a time, and even if I didn't move in the direction of the end product,
+I still created cool resources that I can use later. I wasn't overwhelmed or confused with a blank slate because
+this was a slow work in progress that I would casually work on at night sometimes.
+So, I found moment.js to format dates. Next, I identified problems I needed to solve.
+First, I organized the screen layout a little bit to roughly proportion everything (using flexbox).
+Next, I focused on finding a way to gauge user input and settled on a "picker" component.
+This took forever to format correctly and to lay out on the screen (1 week of casual work on the side? 1 hr work total?).
+Next, I tackled converting the input into a time that I could use to count down to. For instance, I didn't want to use a picker that displayed
+military time (i wanted AM and PM), and my countdown logic uses hours converted to seconds

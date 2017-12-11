@@ -1,0 +1,45 @@
+Install Node.js (first)
+install npm or yarn
+install necessary React Native files
+Install Expo XDE
+
+Create a new project using Expo or the old method of RN app project creation
+
+cd into the project folder
+
+First run "npm init" to create a package.json file
+
+Then run npm install
+
+Then install necessary packages such as react navigation, react elements, react easy toast
+By typing:
+"npm install --save react-navigation"
+https://github.com/react-community/react-navigation
+
+"npm i react-native-easy-toast --save"
+https://github.com/crazycodeboy/react-native-easy-toast
+
+"npm install react-native-elements --save"
+https://github.com/react-native-training/react-native-elements/blob/master/using-with-crna-or-expo.md
+
+"npm install react-native-vector-icons --save"
+https://github.com/oblador/react-native-vector-icons
+
+"npm install moment --save"
+https://momentjs.com/
+
+Then run "react-native link"
+
+Ready to code
+
+Start up Expo packager and scan QR code
+
+Make edits
+
+
+To find navigation help: https://github.com/react-community/react-navigation/blob/master/examples/NavigationPlayground/js/StacksInTabs.js
+For updating clock: https://openclassrooms.com/courses/build-web-apps-with-reactjs/build-a-ticking-clock-component
+
+//Work on starting to implement the bedtime countdown timer, put in my about me page
+//Look into a backend for other apps possibly?
+//Work on p5.js sketches and write Medium posts discussing how to set up and build a project like this
