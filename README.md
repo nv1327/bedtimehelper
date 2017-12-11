@@ -6,3 +6,6 @@ and tells the user second by second how much time they have until they need to g
 to bed at their designated time.
 
 Check the other readme for setup, and check out the code to learn some of the logic!
+
+WARNING: NOT STABLE!
+I WILL FIX THIS TO A STABLE POINT THEN MAKE A "DEVELOP" BRANCH FOR EXPERIMENTAL PURPOSES
