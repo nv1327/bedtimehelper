@@ -7,13 +7,7 @@ import moment from 'moment';
 
 //Current position: countdown logic
 //If someone selects 23:59 (as in 11:59pm) and 1:00am, the difference is 22:59, but they are only an hour apart!
-//Maybe do a pyramid of values where 1 has a low value, it builds up where 12 has a high value, and goes back down where 24 has a low value. --> the pyramid's issue is that the picker selects two values
-//Now, I have to convert countdownhour to minutes and subtract from countdownminute, and convert countdownminute or countdownhour to seconds and subtract from countdownsec.
-//WHY ARE THE SECONDS COUNTING UP???? --> i think the issue stems from the pyramid of values issue above, so focus on that
-//I have to adjust the countdownsec because it should be 57, 58,... instead of 60789 seconds and counting up!
-//if the selected bedtime is after current time, the seconds count down, but if the selected bedtime is before, the seconds count up all the way until 24:00 (i think)
-//another issue: if you just set 1:00AM and switch between AM and PM without changing anything else, it goes 13:00, 25:00, 37:00, 49:00, etc. I tried an if loop with booleans, but idk
-//if the time is bedtime is before the current time, it should add 12 to this.state.countdownhour and it would know that using a boolean
+//Maybe do a pyramid of values where 1 has a low value, it builds up where 12 has a high value, and goes back down where 24 has a low value.
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,22 +19,11 @@ export default class App extends React.Component {
       thishour: 0,
       thisminute: 0,
       thisdaytime: "",
+      daytimebool: false,
       counter: 0,
       countdownhour: 0,
       countdownminute: 0,
       countdownsec: 0,
-      timeset1: 0,
-      timeset2: 0,
-      timeset3: 0,
-      timeset4: 0,
-      timeset5: 0,
-      timeset6: 0,
-      timeset7: 0,
-      timeset8: 0,
-      timeset9: 0,
-      timeset10: 0,
-      timeset11: 0,
-      timeset12: 0,
     };
   }
 
@@ -96,11 +79,10 @@ export default class App extends React.Component {
     this.state.countdownsec = countdownsec;
 
     //for displaying "2H 34M" rather than 2.55hrs...
-    this.state.countdownhour = truncator(countdownhour, 0); //should make the hour 0
-    this.state.countdownminute = (countdownhour - this.state.countdownhour) * 60;
-    this.state.countdownminute = truncator(this.state.countdownminute, 0);
-    this.state.countdownsec = 60 - secondmult;
-    //NOW I HAVE TO DO THE SAME ADJUSTMENT WITH SECONDS --> multiply this.state.countdownhour by 3600, this.state.countdownminute by 60, and add those together, and subtract that from the countdownsec consistently
+      this.state.countdownhour = truncator(countdownhour, 0); //should make the hour 0
+      this.state.countdownminute = (countdownhour - this.state.countdownhour) * 60;
+      this.state.countdownminute = truncator(this.state.countdownminute, 0);
+      //NOW I HAVE TO DO THE SAME ADJUSTMENT WITH SECONDS --> multiply this.state.countdownhour by 3600, this.state.countdownminute by 60, and add those together, and subtract that from the countdownsec consistently
 
     //truncator function that cuts off the end of floating point numbers --> https://stackoverflow.com/questions/4912788/truncate-not-round-off-decimal-numbers-in-javascript
     function truncator(numToTruncate, intDecimalPlaces) {
@@ -108,58 +90,28 @@ export default class App extends React.Component {
       return ~~(numToTruncate * numPowerConverter)/numPowerConverter;
     };
 
-    if (this.state.thisdaytime === "PM" && this.state.counter < 1) { //this.state.daytimebool === true && ..
+
+    //round the countdownhour to two decimal places!
+    //there have to be some recurring patterns where you can use if loops to figure out every combination
+    //of hours and minutes and seconds based on the seconds alone.
+    //To start, maybe I can just divide the seconds by 3600 and then display, for example, "3.56 hours left" and after a minute, "3.57 hours left"
+    //Then, I can figure out exact hour, minute and second countdowns
+
+
+    if (this.state.thisdaytime === "PM") {
+        this.state.daytimebool = true;
+    }
+
+    if (this.state.daytimebool === true && this.state.counter < 1) {
       this.state.thishour += 12; //gives 112 when it should give 14 --> issue was that the picker values were strings, not integers
+      this.state.daytimebool = false;
       this.state.counter += 1;
-      this.state.timeset1 += 10;
-      this.state.timeset2 += 8;
-      this.state.timeset3 += 6;
-      this.state.timeset4 += 4;
-      this.state.timeset5 += 2;
-      this.state.timeset6 += 0;
-      this.state.timeset7 -= 2;
-      this.state.timeset8 -= 4;
-      this.state.timeset9 -= 6;
-      this.state.timeset10 -= 8;
-      this.state.timeset11 -= 10;
-      this.state.timeset12 -= 12;
     }
 
     if (this.state.thisdaytime === "AM") {
       this.state.counter = 0;
-      this.state.timeset1 = 0;
-      this.state.timeset2 = 0;
-      this.state.timeset3 = 0;
-      this.state.timeset4 = 0;
-      this.state.timeset5 = 0;
-      this.state.timeset6 = 0;
-      this.state.timeset7 = 0;
-      this.state.timeset8 = 0;
-      this.state.timeset9 = 0;
-      this.state.timeset10 = 0;
-      this.state.timeset11 = 0;
-      this.state.timeset12 = 0;
+      this.state.daytimebool = false;
     }
-    else if (this.state.thisdaytime === "AM" && this.state.counter >= 1) {
-      this.state.thishour -= 12;
-      this.state.counter -= 1;
-      this.state.timeset1 = 0;
-      this.state.timeset2 = 0;
-      this.state.timeset3 = 0;
-      this.state.timeset4 = 0;
-      this.state.timeset5 = 0;
-      this.state.timeset6 = 0;
-      this.state.timeset7 = 0;
-      this.state.timeset8 = 0;
-      this.state.timeset9 = 0;
-      this.state.timeset10 = 0;
-      this.state.timeset11 = 0;
-      this.state.timeset12 = 0;
-    }
-
-    //put some if loops here saying that if the selected time is before the current bed time, make the time until bed 23H instead of 1H (bc of the absolute value)
-    //also work on the if loops for the pyramid values to manage the data (what if i just don't display the time and the difference between the hours will be enough? bc the pyramid should theoretically work; it just displays wrong hour values)
-    //these might fix the counting up problem and then i can focus on the input where switching from AM to PM just adds 12 and doesn't remove it when switched back to AM
 
     return (
       <View style = {styles.container}>
@@ -186,18 +138,18 @@ export default class App extends React.Component {
               <Picker
                 selectedValue={this.state.thishour}
                 onValueChange={(value) => this.setState({thishour: value})}>
-                <Picker.Item label={"1"} value= {this.state.timeset1 + 1} />
-                <Picker.Item label={"2"} value= {this.state.timeset2 + 2} />
-                <Picker.Item label={"3"} value= {this.state.timeset3 + 3} />
-                <Picker.Item label={"4"} value= {this.state.timeset4 + 4} />
-                <Picker.Item label={"5"} value= {this.state.timeset5 + 5} />
-                <Picker.Item label={"6"} value= {this.state.timeset6 + 6} />
-                <Picker.Item label={"7"} value= {this.state.timeset7 + 7} />
-                <Picker.Item label={"8"} value= {this.state.timeset8 + 8} />
-                <Picker.Item label={"9"} value= {this.state.timeset9 + 9} />
-                <Picker.Item label={"10"} value= {this.state.timeset10 + 10} />
-                <Picker.Item label={"11"} value= {this.state.timeset11 + 11} />
-                <Picker.Item label={"12"} value = {this.state.timeset12 + 12} />
+                <Picker.Item label={"1"} value= {1} />
+                <Picker.Item label={"2"} value= {2} />
+                <Picker.Item label={"3"} value= {3} />
+                <Picker.Item label={"4"} value= {4} />
+                <Picker.Item label={"5"} value= {5} />
+                <Picker.Item label={"6"} value= {6} />
+                <Picker.Item label={"7"} value= {7} />
+                <Picker.Item label={"8"} value= {8} />
+                <Picker.Item label={"9"} value= {9} />
+                <Picker.Item label={"10"} value= {10} />
+                <Picker.Item label={"11"} value= {11} />
+                <Picker.Item label={"12"} value = {12} />
               </Picker>
              </View>
              <View style={{flex:1/3, width: 100}}>
