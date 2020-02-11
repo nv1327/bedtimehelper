@@ -5,16 +5,6 @@ import moment from 'moment';
 //https://stackoverflow.com/questions/39878057/how-to-add-minutes-to-date-in-react-native
 //https://stackoverflow.com/questions/37600750/how-to-prevent-two-react-native-pickers-from-affecting-each-other
 
-//Current position: countdown logic
-//If someone selects 23:59 (as in 11:59pm) and 1:00am, the difference is 22:59, but they are only an hour apart!
-//Maybe do a pyramid of values where 1 has a low value, it builds up where 12 has a high value, and goes back down where 24 has a low value. --> the pyramid's issue is that the picker selects two values
-//Now, I have to convert countdownhour to minutes and subtract from countdownminute, and convert countdownminute or countdownhour to seconds and subtract from countdownsec.
-//WHY ARE THE SECONDS COUNTING UP???? --> i think the issue stems from the pyramid of values issue above, so focus on that
-//I have to adjust the countdownsec because it should be 57, 58,... instead of 60789 seconds and counting up!
-//if the selected bedtime is after current time, the seconds count down, but if the selected bedtime is before, the seconds count up all the way until 24:00 (i think)
-//another issue: if you just set 1:00AM and switch between AM and PM without changing anything else, it goes 13:00, 25:00, 37:00, 49:00, etc. I tried an if loop with booleans, but idk
-//if the time is bedtime is before the current time, it should add 12 to this.state.countdownhour and it would know that using a boolean
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
